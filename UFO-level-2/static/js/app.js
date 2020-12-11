@@ -30,7 +30,7 @@ tableData.forEach(function(tableData) {
 var button = d3.select("#filter-btn");
 
 // Select the form
-var form = d3.select(".form-control");
+var form = d3.select("form");
 
 // Create event handlers for clicking the button or pressing the enter key
 button.on("click", runEnter);
@@ -60,7 +60,7 @@ function runEnter() {
   inputValues = [inputValue1, inputValue2, inputValue3, inputValue4,inputValue5]
   console.log(inputValues);
 
-  // Filter the data based on input values, have to accept multiple filters
+  // Filter the data based on input values
 var filtertable = tableData
 
 if (inputValue1) {
@@ -82,7 +82,8 @@ if(inputValue4) {
 if(inputValue5) {
   filtertable = filtertable.filter(alien => alien.shape === inputValue5)  
   } 
- 
+ // if no data to filter, then use full table data 
+if( !inputValue1 && !inputValue2 && !inputValue3 && !inputValue4 && !inputValue5) {var filtertable = tableData}
   console.log(filtertable);
 
   // Get a reference to the table body
@@ -90,10 +91,8 @@ if(inputValue5) {
 
   // Update table based on filter
 
-  // clear prior table
   tbody.html("");
 
-  // add a row for each data, append cell data in
   filtertable.forEach(function(filtertable) {
       var row = tbody.append("tr");
 
